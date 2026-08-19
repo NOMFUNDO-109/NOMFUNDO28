@@ -1,4 +1,4 @@
-// Minimal interactivity: year and menu toggle
+// Minimal interactivity: year, menu toggle, and mobile nav behavior
 document.getElementById('year').textContent = new Date().getFullYear();
 
 const menuToggle = document.querySelector('.menu-toggle');
@@ -11,12 +11,23 @@ if (menuToggle) {
   });
 }
 
+// Close mobile nav when a nav link is clicked
+if (nav) {
+  nav.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      if (window.innerWidth <= 900 && menuToggle) {
+        menuToggle.setAttribute('aria-expanded', 'false');
+        nav.style.display = 'none';
+      }
+    });
+  });
+}
+
 // Optional: Basic client-side form success message
 const form = document.getElementById('contactForm');
 if (form) {
   form.addEventListener('submit', (e) => {
     // Let the external service handle the submission.
-    // You can implement AJAX + success UI if using an API.
     setTimeout(()=> alert('Thanks — your message is being sent.'), 200);
   });
 }
